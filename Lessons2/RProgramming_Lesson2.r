@@ -5,10 +5,11 @@ pollutantmean <- function(directory, pollutant, id = 1:332){
 	for(sensor in id){
 		f <- paste(formatC(sensor, width=3, flag="0"), ".csv", sep="")
 		file <- file.path(path, f)
-		data <- read.csv(file)
-		vpollutant <- c(vpollutant, data[pollutant])
+		data <- read.csv(file)[ , c(pollutant)]
+		vpollutant <- c(vpollutant, data)
 	}
 	
-	return(is.na(vpollutant))
-	## values <- vpollutant[!vNA]
+	isNA <- is.na(vpollutant)
+	values <- vpollutant[!isNA]
+	return(mean(values))
 }
