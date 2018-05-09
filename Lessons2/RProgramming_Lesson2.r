@@ -33,3 +33,20 @@ complete <- function(directory, id = 1:332){
   
   return(result)
 }
+
+
+corr <- function(directory, threshold = 0){
+  path <- file.path(getwd(), directory)
+  files <- dir(path)
+  result <- data.frame()
+  
+  for(f in files){
+    file <- file.path(path, f)
+    data <- read.csv(file)
+    dataComplete <- data[complete.cases(data), ]
+    
+    result <- rbind(result, dataComplete)
+  }
+  
+  return(result)
+}
